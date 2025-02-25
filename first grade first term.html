@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        p{
+            width: 80%;
+        }
+        #rate {
+            width: 50px;  /* Small width for a number input */
+            padding: 5px;
+            text-align: center;  /* Center-align the text */
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <p > First Grade - First Term</p>
+        <p id="questionNumber" ></p>
+        <audio id="audioPlayer" controls ></audio>
+    </div>
+    <div>
+        <button id="read">Read</button>
+        <button id="next">Next</button>
+        <button id="prev">Previous</button>
+    </div>
+    <div>
+        <label for="rate">Speech Rate:</label>
+        <input type="text" id="rate" value="1"> <!-- Added input for rate -->
+    </div>
+    <div>
+        <p id="q"></p>
+    </div>
+    <div>
+        
+        <p id="arabic"></p>
+        
+        <details>
+            <summary>Check your answer.</summary>
+            <p id="english"></p>
+        </details>
+    </div>
+    <script>
+        let current = 0;
+        const sentences = [
+            {
+                audioFile: "page28_Q1.mp3",
+                english: "Put your bags away.",
+                arabic: "ضع حقائبك بعيدا",
+                
+            },
+            {
+                audioFile: "page28_Q1.mp3",
+                english: "Welcome.",
+                arabic: "أهلًا وسهلًا",                
+            },
+            {
+                audioFile: "page28_Q1.mp3",
+                english: "Take out your pencils.",
+                arabic: "أخرج أقلام الرصاص الخاصة بك",                
+            },
+            {
+                audioFile: "page28_Q1.mp3",
+                english: "Take out your books.",
+                arabic: "أخرج كتبك",                
+            },
+            {
+                audioFile: "page28_Q1.mp3",
+                english: "Please take a seat.",
+                arabic: "من فضلك خذ مقعدا",                
+            },
+            {
+                audioFile: "page28_Q1.mp3",
+                english: "Please open the window.",
+                arabic: "الرجاء فتح النافذة",                
+            },
+            {
+                audioFile: "page28_Q1.mp3",
+                english: "Please take a seat.",
+                arabic: "شكرا",                
+            },
+            {
+                audioFile: "page28_Q1.mp3",
+                english: "Thank you.",
+                arabic: "مرحبا بك",                
+            },
+            {
+                audioFile: "page28_Q1.mp3",
+                english: "You are welcome.",
+                arabic: "مرحبا بك",                
+            },
+            {
+                audioFile: "page28_Q1.mp3",
+                english: "Hello.",
+                arabic: "مرحبا",                
+            },
+            {
+                audioFile: "page28_Q1.mp3",
+                english: "What is your name?",
+                arabic: "ما اسمك؟",                
+            },
+            {
+                audioFile: "page28_Q1.mp3",
+                english: "My name is Labeeb.",
+                arabic: "اسمي لبيب",                
+            },
+            {
+                audioFile: "page28_Q1.mp3",
+                english: "How are you?",
+                arabic: "كيف حالك؟",                
+            },
+            {
+                audioFile: "page28_Q1.mp3",
+                english: "I am fine, thank you.",
+                arabic: "أنا بخير شكرًا",                
+            },
+            {
+                audioFile: "page28_Q1.mp3",
+                english: "What is this color?",
+                arabic: "ما هذا اللون؟",                
+            },
+            {
+                audioFile: "page28_Q1.mp3",
+                english: "Red and yellow.",
+                arabic: "الأحمر والأصفر",                
+            },
+            {
+                audioFile: "page28_Q1.mp3",
+                english: "I can see a rainbow.",
+                arabic: "أستطيع أن أرى قوس قزح",                
+            },
+            
+            {
+                audioFile: "page28_Q1.mp3",
+                english: "Pink and blue.",
+                arabic: "الوردي والأزرق",                
+            },
+            {
+                audioFile: "page28_Q1.mp3",
+                english: "Purple and orange.",
+                arabic: "الأرجواني والبرتقالي",                
+            },
+            {
+                audioFile: "page28_Q1.mp3",
+                english: "Green and yellow.",
+                arabic: "الأخضر والأصفر",                
+            },
+            {
+                audioFile: "page28_Q1.mp3",
+                english: "Find 3 colors in the classroom.",
+                arabic: "ابحث عن 3 ألوان في الفصل الدراسي",                
+            },
+           
+            {
+                audioFile: "page28_Q1.mp3",
+                english: "I can see a rainbow.",
+                arabic: "أستطيع أن أرى قوس قزح",                
+            },
+            {
+                audioFile: "page28_Q1.mp3",
+                english: "Touch something yellow.",
+                arabic: "المس شيئا أصفر",                
+            },
+            {
+                audioFile: "page28_Q1.mp3",
+                english: "Say the names of five colors.",
+                arabic: "قل أسماء خمسة ألوان",                
+            },
+            {
+                audioFile: "page28_Q1.mp3",
+                english: "Help your friends.",
+                arabic: "ساعد أصدقائك",                
+            },
+            {
+                audioFile: "page28_Q1.mp3",
+                english: "ًًWrite your name.",
+                arabic: "اكتب اسمك",                
+            },
+            {
+                audioFile: "page28_Q1.mp3",
+                english: "Draw a picture.",
+                arabic: "ارسم صورة",                
+            },
+            {
+                audioFile: "page28_Q1.mp3",
+                english: "Show your picture to a friend.",
+                arabic: "اعرض صورتك على صديق",                
+            },
+           
+           
+            {
+                audioFile: "page28_Q1.mp3",
+                english: "Open you eyes.",
+                arabic: "افتح عينيك",                
+            },
+            {
+                audioFile: "page28_Q1.mp3",
+                english: "Close your eyes.",
+                arabic: "أغلق عينيك",                
+            },
+            {
+                audioFile: "page28_Q1.mp3",
+                english: "Raise your hands.",
+                arabic: "ارفع يديك",                
+            },
+            {
+                audioFile: "page28_Q1.mp3",
+                english: "Clap your hands.",
+                arabic: "صفق بيديك",                
+            },
+            {
+                audioFile: "page28_Q1.mp3",
+                english: "Close your eyes.",
+                arabic: "أغمض عينيك",                
+            },
+            {
+                audioFile: "page28_Q1.mp3",
+                english: "Close your book.",
+                arabic: "أغلق كتابك",                
+            },
+            {
+                audioFile: "page28_Q1.mp3",
+                english: "Open your book.",
+                arabic: "افتح كتابك",                
+            },{
+                audioFile: "page28_Q1.mp3",
+                english: "head, shoulder, knees , and toes.",
+                arabic: "الرأس  الكتف  الركبتين  أصابع القدم",                
+            },
+            {
+                audioFile: "page28_Q1.mp3",
+                english: "The teacher says.",
+                arabic: "يقول المعلم",                
+            },
+            {
+                audioFile: "page28_Q1.mp3",
+                english: "Touch what your teacher says.",
+                arabic: "المس ما يقوله معلمك",                
+            },
+            {
+                audioFile: "page28_Q1.mp3",
+                english: "Mouth, eyes , ears , nose.",
+                arabic: "الفم  العينين  الأذنين  الأنف",                
+            },
+            {
+                audioFile: "page28_Q1.mp3",
+                english: "hand , finger, five fingers.",
+                arabic: "أخبر صديقا أن يلمس جزأين من الجسم",                
+            },
+            {
+                audioFile: "page28_Q1.mp3",
+                english: "Tell a  friend to touch two body parts.",
+                arabic: "أخبر صديقا أن يلمس جزأين من الجسم",                
+            },
+            {
+                audioFile: "page28_Q1.mp3",
+                english: "Please stand up.",
+                arabic: "من فضلك قف على قدميك",                
+            },
+            {
+                audioFile: "page28_Q1.mp3",
+                english: "Pleas sit down.",
+                arabic: "من قضلك اجلس",                
+            },
+            {
+                audioFile: "page28_Q1.mp3",
+                english: "Pleas make a line.",
+                arabic: "من فضلك أصنع خطا",                
+            },
+            {
+                audioFile: "page28_Q1.mp3",
+                english: "Please go back to your seat.",
+                arabic: "يرجى العودة إلى مقعدك",                
+            },
+            {
+                audioFile: "page28_Q1.mp3",
+                english: "Please make a circle.",
+                arabic: "من فضلك اصنع دائرة",                
+            },
+            {
+                audioFile: "page28_Q1.mp3",
+                english: "Please come to the front.",
+                arabic: "من فضلك تعال إلى المقدمة",                
+            },
+            {
+                audioFile: "page28_Q1.mp3",
+                english: "A a.",
+                arabic: "",                
+            },
+            {
+                audioFile: "page28_Q1.mp3",
+                english: "B b.",
+                arabic: "",                
+            },
+            {
+                audioFile: "page28_Q1.mp3",
+                english: "C c.",
+                arabic: "",                
+            },
+            {
+                audioFile: "page28_Q1.mp3",
+                english: "D d.",
+                arabic: "",                
+            },
+            {
+                audioFile: "page28_Q1.mp3",
+                english: "E e.",
+                arabic: "",                
+            },
+            {
+                audioFile: "page28_Q1.mp3",
+                english: "F f.",
+                arabic: "",                
+            },
+            {
+                audioFile: "page28_Q1.mp3",
+                english: "H h.",
+                arabic: "",                
+            },
+            {
+                audioFile: "page28_Q1.mp3",
+                english: "G g.",
+                arabic: "",                
+            },
+            {
+                audioFile: "page28_Q1.mp3",
+                english: "I i.",
+                arabic: "",                
+            },
+            {
+                audioFile: "page28_Q1.mp3",
+                english: "J j.",
+                arabic: "",                
+            },
+            {
+                audioFile: "page28_Q1.mp3",
+                english: "K k.",
+                arabic: "",                
+            },
+            {
+                audioFile: "page28_Q1.mp3",
+                english: "L l.",
+                arabic: "",                
+            },
+            {
+                audioFile: "page28_Q1.mp3",
+                english: "M m.",
+                arabic: "",                
+            },
+            {
+                audioFile: "page28_Q1.mp3",
+                english: "N n.",
+                arabic: "",                
+            },
+            {
+                audioFile: "page28_Q1.mp3",
+                english: "O o.",
+                arabic: "",                
+            },
+            {
+                audioFile: "page28_Q1.mp3",
+                english: "P p.",
+                arabic: "",                
+            },
+            {
+                audioFile: "page28_Q1.mp3",
+                english: "Q q.",
+                arabic: "",                
+            },
+            {
+                audioFile: "page28_Q1.mp3",
+                english: "R r.",
+                arabic: "",                
+            },
+            {
+                audioFile: "page28_Q1.mp3",
+                english: "S s.",
+                arabic: "",                
+            },
+            {
+                audioFile: "page28_Q1.mp3",
+                english: "T t.",
+                arabic: "",                
+            },
+            {
+                audioFile: "page28_Q1.mp3",
+                english: "U u.",
+                arabic: "",                
+            },
+            {
+                audioFile: "page28_Q1.mp3",
+                english: "V v.",
+                arabic: "",                
+            },
+            {
+                audioFile: "page28_Q1.mp3",
+                english: "W w.",
+                arabic: "",                
+            },
+            {
+                audioFile: "page28_Q1.mp3",
+                english: "Y y.",
+                arabic: "",                
+            },
+            {
+                audioFile: "page28_Q1.mp3",
+                english: "X x.",
+                arabic: "",                
+            },
+            {
+                audioFile: "page28_Q1.mp3",
+                english: "z z.",
+                arabic: "",                
+            },
+            {
+                audioFile: "page28_Q1.mp3",
+                english: "This my brother, Jack.",
+                arabic: "هذا أخي جاك",                
+            },
+            {
+                audioFile: "page28_Q1.mp3",
+                english: "T his is my sister, Mary.",
+                arabic: "هذه أختي ماري.",                
+            },
+            {
+                audioFile: "page28_Q1.mp3",
+                english: "Nice to meet you.",
+                arabic: "سعدت بلقائك",                
+            },
+            {
+                audioFile: "page28_Q1.mp3",
+                english: "Nice to meet you, too.",
+                arabic: "سعدت بلقائك أيضا",                
+            },
+           
+            {
+                audioFile: "page28_Q1.mp3",
+                english: "This my friend, Susan.",
+                arabic: "هذه صديقتي سوزان",                
+            },
+            {
+                audioFile: "page28_Q1.mp3",
+                english: "Five little monkeys.",
+                arabic: "خمس قرود صغيرة",                
+            },
+            {
+                audioFile: "page28_Q1.mp3",
+                english: "Jumping on the bed.",
+                arabic: "تقفز غلى السرير",                
+            },
+            {
+                audioFile: "page28_Q1.mp3",
+                english: "One fell off and bumped his head.",
+                arabic: "سقط أحدهم واصطدم برأسه",                
+            },
+            {
+                audioFile: "page28_Q1.mp3",
+                english: "Mom called the doctor and the doctor said.",
+                arabic: "أتصلت الأم بالطبيب و قال الطبيب",  
+                              
+            },
+            {
+                audioFile: "page28_Q1.mp3",
+                english: "No more monkeys jumping on the bed.",
+                arabic: "لا مزيد من القفز على السرير",                
+            },
+            {
+                audioFile: "page28_Q1.mp3",
+                english: "Don't shout.",
+                arabic: "لا تصرخ",                
+            },
+            {
+                audioFile: "page28_Q1.mp3",
+                english: "Obey your parents.",
+                arabic: "أطيع والديك",                
+            },
+            {
+                audioFile: "page28_Q1.mp3",
+                english: "Listen and pronounce.",
+                arabic: "استمع وانطق",                
+            },
+            {
+                audioFile: "page28_Q1.mp3",
+                english: "ٍٍSay the words.",
+                arabic: "قل الكلمات.",                
+            },
+            {
+                audioFile: "page28_Q1.mp3",
+                english: "Listen and say.",
+                arabic: "استمع وقل",                
+            },
+            {
+                audioFile: "page28_Q1.mp3",
+                english: "Point and say.",
+                arabic: "أشر وقل",                
+            },
+            {
+                audioFile: "page28_Q1.mp3",
+                english: "goat.",
+                arabic: "ماعز",                
+            },
+            {
+                audioFile: "page28_Q1.mp3",
+                english: "pen.",
+                arabic: "قلم",                
+            },
+            {
+                audioFile: "page28_Q1.mp3",
+                english: "ink.",
+                arabic: "حبر",                
+            },
+            {
+                audioFile: "page28_Q1.mp3",
+                english: "apple.",
+                arabic: "تفاحة",                
+            },
+            {
+                audioFile: "page28_Q1.mp3",
+                english: "bear.",
+                arabic: "كمثرى",                
+            },
+            {
+                audioFile: "page28_Q1.mp3",
+                english: "hat.",
+                arabic: "قبعه",                
+            },
+            {
+                audioFile: "page28_Q1.mp3",
+                english: "octopus.",
+                arabic: "اخطبوط",                
+            },
+            {
+                audioFile: "page28_Q1.mp3",
+                english: "quilt.",
+                arabic: "قلم",                
+            },
+            {
+                audioFile: "page28_Q1.mp3",
+                english: "rabbit.",
+                arabic: "أرنب",                
+            },
+            {
+                audioFile: "page28_Q1.mp3",
+                english: "jet.",
+                arabic: "طائرة نفاثة",                
+            },
+            {
+                audioFile: "page28_Q1.mp3",
+                english: "zebra.",
+                arabic: "زرافة",                
+            },
+            {
+                audioFile: "page28_Q1.mp3",
+                english: "wolf.",
+                arabic: "ذئب",                
+            },
+            {
+                audioFile: "page28_Q1.mp3",
+                english: "fox.",
+                arabic: "ثعلب",                
+            },
+            {
+                audioFile: "page28_Q1.mp3",
+                english: "yard.",
+                arabic: "ساحة",                
+            },
+            {
+                audioFile: "page28_Q1.mp3",
+                english: "kiwi.",
+                arabic: "كيوي",                
+            },
+            {
+                audioFile: "page28_Q1.mp3",
+                english: "lion.",
+                arabic: "أسد",                
+            },
+            {
+                audioFile: "page28_Q1.mp3",
+                english: "monkey.",
+                arabic: "قرد",                
+            },
+            {
+                audioFile: "page28_Q1.mp3",
+                english: "cow.",
+                arabic: "بقرة",                
+            },
+            {
+                audioFile: "page28_Q1.mp3",
+                english: "duck.",
+                arabic: "بطة",                
+            },
+            {
+                audioFile: "page28_Q1.mp3",
+                english: "egg.",
+                arabic: "بيض",                
+            },
+            {
+                audioFile: "page28_Q1.mp3",
+                english: "fish.",
+                arabic: "سمكة",                
+            },
+            {
+                audioFile: "page28_Q1.mp3",
+                english: "nest.",
+                arabic: "عش",                
+            },
+            {
+                audioFile: "page28_Q1.mp3",
+                english: "sun.",
+                arabic: "شمس",                
+            },
+            {
+                audioFile: "page28_Q1.mp3",
+                english: "tiger.",
+                arabic: "نمر",                
+            },
+            {
+                audioFile: "page28_Q1.mp3",
+                english: "umbrella.",
+                arabic: "مظلة",                
+            },
+            {
+                audioFile: "page28_Q1.mp3",
+                english: "vase.",
+                arabic: "مزهرية",                
+            },
+             
+                          
+        ];
+        
+        function getData() {
+            document.getElementById("audioPlayer").src = sentences[current].audioFile;
+            document.getElementById("english").textContent = sentences[current].english;
+            document.getElementById("arabic").textContent = sentences[current].arabic;
+            document.getElementById("questionNumber").textContent=`${(current +1) + (" of ") + (sentences.length)}`;
+            
+        }
+
+        document.getElementById("read").addEventListener('click', () => {
+            const utterance = new SpeechSynthesisUtterance();
+            utterance.lang = "en-GB";
+            
+            // Get speech rate from input, default to 1 if invalid
+            let rate = parseFloat(document.getElementById("rate").value);
+            if (isNaN(rate) || rate <= 0) rate = 1;  
+            utterance.rate = rate;
+
+            utterance.text = document.getElementById("english").textContent;
+            speechSynthesis.speak(utterance);
+        });
+        document.getElementById("next").addEventListener('click',()=>{
+            if(current< sentences.length-1){
+                current++;
+                getData();
+            }
+        });
+        document.getElementById("prev").addEventListener('click',()=>{
+            if(current >0){
+                current--;
+                getData();
+            }
+        });
+
+        getData();
+    </script>
+</body>
+</html>
