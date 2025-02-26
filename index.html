@@ -5,18 +5,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <style>
-	
-    html{
-		background-color:#071A3D;
-		margin:auto;
+
+    @media (max-width: 600px) {
+        body {
+            width: 95%; /* Make it more fluid */
+        }
     }
-   @media (max-width: 600px) {
-   	 body {
-        width: 95%; /* Make it more fluid */
-    	}
-   }
+
+	
+	html{
+        margin:auto;
+		background-color:#071A3D;
+		
+    }
     p{
-        width: 80%;
+    width: 80%;
     color:white;
     text-align:center;
     }
@@ -29,12 +32,12 @@
         }
 	
 	.buttons{
-		margin-left:270px;
+		
 		margin-top:10px;	
     }
 	
 	.speech{
-		margin-left:270px;
+		
         margin-top: 10px;
     }
 
@@ -56,7 +59,7 @@
         <p style="margin-left: 60px;"> First Grade - First Term</p>
 	<hr>
         <p id="questionNumber" ></p>
-        <audio id="audioPlayer" controls style="margin-left:200px;"></audio>
+        <audio id="audioPlayer" controls style="align-items:center;"></audio>
     </div>
     <div class="buttons">
         <button id="read">Read</button>
