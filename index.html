@@ -5,30 +5,62 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <style>
-        p{
-            width: 80%;
-        }
+	
+	html{
+		background-color:#071A3D;
+		margin-left:400px;
+		margin-right:400px;
+    }
+    p{
+        width: 80%;
+    color:white;
+    text-align:center;
+    }
         #rate {
             width: 50px;  /* Small width for a number input */
             padding: 5px;
             text-align: center;  /* Center-align the text */
             font-size: 16px;
+	    
         }
+	
+	.buttons{
+		margin-left:270px;
+		margin-top:10px;	
+    }
+	
+	.speech{
+		margin-left:270px;
+        margin-top: 10px;
+    }
+
+	p#arabic{
+		color:white;
+        margin-left: 60px;
+    }
+	::marker{
+		color:white;
+    }
+    #questionNumber{
+        margin-left: 60px;
+    }
+
     </style>
 </head>
 <body>
     <div>
-        <p > First Grade - First Term</p>
+        <p style="margin-left: 60px;"> First Grade - First Term</p>
+	<hr>
         <p id="questionNumber" ></p>
-        <audio id="audioPlayer" controls ></audio>
+        <audio id="audioPlayer" controls style="margin-left:200px;"></audio>
     </div>
-    <div>
+    <div class="buttons">
         <button id="read">Read</button>
         <button id="next">Next</button>
         <button id="prev">Previous</button>
     </div>
-    <div>
-        <label for="rate">Speech Rate:</label>
+    <div class="speech">
+        <label for="rate" style="color:white">Speech Rate:</label>
         <input type="text" id="rate" value="1"> <!-- Added input for rate -->
     </div>
     <div>
@@ -37,9 +69,10 @@
     <div>
         
         <p id="arabic"></p>
+        <hr>
         
         <details>
-            <summary>Check your answer.</summary>
+            <summary style="color:white;">Check your answer.</summary>
             <p id="english"></p>
         </details>
     </div>
