@@ -8,8 +8,22 @@
 
     @media (max-width: 600px) {
         body {
-            width: 95%; /* Make it more fluid */
+            width: 80%; /* Make it more fluid */
         }
+        #audioPlayer{
+            float: right;
+          
+            align-content: center;
+           
+        }
+        .buttons{
+            float: left;
+            display: flex;
+            flex-direction: row;
+            gap: 10px;
+        }
+
+
     }
 
 	
@@ -40,6 +54,8 @@
 	.speech{
 		
         margin-top: 10px;
+        margin-left: 25%;
+        width: 50%;
     }
 
 	p#arabic{
@@ -50,7 +66,8 @@
 		color:white;
     }
     #questionNumber{
-        margin-left: 60px;
+        margin-left: 25%;
+        width: 50%;
     }
     #audioPlayer{
         /* width: 50%; */
@@ -64,7 +81,8 @@
         <p style="margin-left: 60px;"> First Grade - First Term</p>
 	<hr>
         <p id="questionNumber" ></p>
-        <audio id="audioPlayer" controls style="align-items:center;"></audio>
+        <div id="audioPlayer"><audio  controls ></audio></div>
+        
     </div>
     <div class="buttons">
         <button id="read">Read</button>
@@ -73,7 +91,7 @@
     </div>
     <!-- <div class="speech">
         <label for="rate" style="color:white">Speech Rate:</label>
-        <input type="text" id="rate" value="1"> <!-- Added input for rate -->
+        <input type="text" id="rate" value="1">  Added input for rate -->
     </div> 
     <div>
         <p id="q"></p>
