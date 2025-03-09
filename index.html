@@ -8,19 +8,36 @@
 
     @media (max-width: 600px) {
         body {
-            width: 80%; /* Make it more fluid */
+            height: 80%;
+            
         }
-        #audioPlayer{
-            float: right;
-            align-content: center;
-           
-        }
+        
         .buttons{
             
             display: flex;
             flex-direction: row;
             gap: 10px;
+            /* justify-content: center; */
         }
+
+        #arabic{
+            border:  thick double white;
+            border-block-width: 1px;
+            border-radius: 5px;
+            padding: 5px;
+            width: 80vh;
+
+        }
+        .next-section{
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            align-items: center;
+            height: 100%;
+        }
+       
+        
+       
 
 
     }
@@ -45,40 +62,58 @@
         }
 	
 	.buttons{
-		width: 50%;
-		margin-left:40%;	
-        margin-top:10px;
+		/* width: 50%; */
+		/* margin-left:40%;	 */
+       
+        padding: 5px;
+        display:flex ;
+        gap: 5px;
+        justify-content: center;
+        
     }
 	
-	.speech{
-		
-        margin-top: 10px;
-        margin-left: 25%;
-        width: 50%;
-    }
+	
 
 	p#arabic{
 		color:white;
-        margin-left: 60px;
+        
+        border:  thick double white;
+        border-block-width: 1px;
+        border-radius: 5px;
+        
+        width: 35%;
+        padding: 5px;
+
     }
 	::marker{
 		color:white;
     }
-    #questionNumber{
-        margin-left: 25%;
-        width: 50%;
+   
+    .next-section{
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            align-items: center;
+            height: 100%;
     }
-    #audioPlayer{
-        /* width: 50%; */
-        margin-left: 35%;
+    #disc{
+        display: flex;
+        justify-content: center;
+    }
+
+    #ara{
+        display: flex;
+        justify-content: center;
     }
 
     </style>
 </head>
 <body>
     <div>
-        <p style="margin-left: 60px;"> First Grade - First Term</p>
-	<hr>
+         <div id="disc"><p > First Grade - First Term</p></div>
+         <hr>
+         <div class="next-section">
+           
         <p id="questionNumber" ></p>
         <div id="audioPlayer"><audio  controls ></audio></div>
         
@@ -97,8 +132,11 @@
     </div>
     <div>
         
-        <p id="arabic"></p>
+        <div id="ara"><p id="arabic"></p></div>
         <hr>
+         </div>
+	
+    
         
         <details>
             <summary style="color:white;">Check your answer.</summary>
